@@ -9,14 +9,13 @@ import { Post } from '../../shared/interfaces';
 })
 export class PostDetailsComponent implements OnInit {
   post!: Post;
-  id: number = 0;
 
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      let { id, body, userId, title } = params;
-      this.post = { id, body, userId, title };
+      let { id, title, body, userId } = params;
+      this.post = { id, title, body, userId };
     });
   }
 }
