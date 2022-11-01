@@ -11,7 +11,6 @@ export class PostsComponent implements OnInit {
   posts!: Array<Post>;
 
   deletePost(postId: number) {
-    console.log(postId);
     this.postsService.deletePost(postId).subscribe((res) => {
       this.posts = this.posts.filter((post) => post.id !== postId);
     });

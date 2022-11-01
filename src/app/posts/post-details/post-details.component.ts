@@ -1,5 +1,4 @@
-import { ThisReceiver } from '@angular/compiler';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Post } from '../../shared/interfaces';
 
@@ -9,7 +8,15 @@ import { Post } from '../../shared/interfaces';
   styleUrls: ['./post-details.component.scss'],
 })
 export class PostDetailsComponent implements OnInit {
+  post!: Post;
+  id: number = 0;
+
   constructor(private route: ActivatedRoute) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      let { id, body, userId, title } = params;
+      this.post = { id, body, userId, title };
+    });
+  }
 }
