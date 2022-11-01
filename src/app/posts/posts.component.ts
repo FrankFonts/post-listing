@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PostsService } from '../shared/get-posts.service';
 import { Post } from '../shared/interfaces';
 
 @Component({
@@ -9,11 +10,16 @@ import { Post } from '../shared/interfaces';
 export class PostsComponent implements OnInit {
   posts!: Array<Post>;
 
-  constructor() {}
+  deletePost(postId: number) {
+    console.log(postId);
+    this.postsService.deletePost(postId).subscribe((res) => {
+      this.posts = this.posts.filter((post) => post.id !== postId);
+    });
+  }
+
+  constructor(private postsService: PostsService) {}
 
   ngOnInit(): void {
-    fetch('https://jsonplaceholder.typicode.com/posts')
-      .then((response) => response.json())
-      .then((json) => console.log(json));
+    this.postsService.getPosts().subscribe((res) => (this.posts = res));
   }
 }
